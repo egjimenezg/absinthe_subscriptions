@@ -13,10 +13,20 @@ defmodule AbsintheSubscriptionsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", AbsintheSubscriptionsWeb do
-    pipe_through :browser
+  scope "/api", AbsintheSubscriptionsWeb do
+    pipe_through :api
+  end
 
-    get "/", PageController, :index
+  scope "/" do
+    pipe_through :api
+
+    forward "/api", Absinthe.Plug,
+      schema: AbsintheSubscriptionsWeb.Schema
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: AbsintheSubscriptionsWeb.Schema,
+      interface: :simple,
+      socket: AbsintheSubscriptionsWeb.UserSocket
   end
 
   # Other scopes may use custom stacks.
