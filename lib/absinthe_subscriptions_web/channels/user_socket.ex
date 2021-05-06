@@ -1,5 +1,6 @@
 defmodule AbsintheSubscriptionsWeb.UserSocket do
   use Phoenix.Socket
+  use Absinthe.Phoenix.Socket, schema: AbsintheSubscriptionsWeb.Schema
 
   ## Channels
   # channel "room:*", AbsintheSubscriptionsWeb.RoomChannel

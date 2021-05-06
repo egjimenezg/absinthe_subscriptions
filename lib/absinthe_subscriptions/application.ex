@@ -14,7 +14,8 @@ defmodule AbsintheSubscriptions.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: AbsintheSubscriptions.PubSub},
       # Start the Endpoint (http/https)
-      AbsintheSubscriptionsWeb.Endpoint
+      AbsintheSubscriptionsWeb.Endpoint,
+      {Absinthe.Subscription, AbsintheSubscriptionsWeb.Endpoint}
       # Start a worker by calling: AbsintheSubscriptions.Worker.start_link(arg)
       # {AbsintheSubscriptions.Worker, arg}
     ]
