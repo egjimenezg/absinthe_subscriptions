@@ -11,10 +11,17 @@ defmodule AbsintheSubscriptionsWeb.Schema do
     end
   end
 
+  mutation do
+    field :create_new_place, :place do
+      arg :input, non_null(:place_input)
+      resolve &Resolvers.Place.create_place/3
+    end
+  end
+
   subscription do
     field :new_place, :place do
       config fn _args, _info ->
-        {:ok, topic: "*"}
+        {:ok, topic: "places-topic"}
       end
     end
   end
@@ -22,7 +29,8 @@ defmodule AbsintheSubscriptionsWeb.Schema do
   scalar :decimal do
     parse fn
       %{value: value}, _ ->
-        Decimal.parse(value)
+        {decimal_value, ""} = Decimal.parse(value)
+        {:ok, decimal_value}
       _, _ ->
         :error
     end

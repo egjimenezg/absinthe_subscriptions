@@ -6,4 +6,9 @@ defmodule AbsintheSubscriptionsWeb.Schema.PlaceTypes do
     field :longitude, :decimal
   end
 
+  input_object :place_input do
+    field :latitude, non_null(:decimal)
+    field :longitude, non_null(:decimal)
+  end
+
 end

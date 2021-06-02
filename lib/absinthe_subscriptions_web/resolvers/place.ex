@@ -7,4 +7,19 @@ defmodule AbsintheSubscriptionsWeb.Resolvers.Place do
     {:ok, places}
   end
 
+  def create_place(_, %{input: place_input}, _) do
+    place = %Place{
+      latitude: place_input.latitude,
+      longitude: place_input.longitude
+    }
+
+    Absinthe.Subscription.publish(
+      AbsintheSubscriptionsWeb.Endpoint,
+      place,
+      new_place: "places-topic"
+    )
+
+    {:ok, place}
+  end
+
 end
